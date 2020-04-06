@@ -1,14 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
+import path from 'path';
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, "/build")));
 app.use(bodyParser.json());
 
 const withDB = async (operations, res) => {
     try {
-        const client = await MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true});
+        const client = await MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true });
         const db = client.db("my-blog");
 
         await operations(db);
@@ -45,7 +47,7 @@ app.post('/api/articles/:name/upvote', async (req, res) => {
 app.post('/api/articles/:name/add-comment', async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
-        const {username, text} = req.body;
+        const { username, text } = req.body;
         const articleInfo = await db.collection("articles").findOne({ name: articleName });
         await db.collection("articles").updateOne({ name: articleName }, {
             "$set": {
@@ -55,6 +57,10 @@ app.post('/api/articles/:name/add-comment', async (req, res) => {
         const updatedArticleInfo = await db.collection("articles").findOne({ name: articleName });
         res.status(200).json(updatedArticleInfo);
     }, res);
+});
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(path.join(__dirname + "/build/index.html")));
 });
 
 app.listen(8000, () => console.log('Listening on port 8000'));
