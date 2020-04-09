@@ -22,7 +22,7 @@ const withDB = async (operations, res) => {
     }
 }
 
-app.get("blog/api/articles/:name", async (req, res) => {
+app.get("/api/articles/:name", async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const articleInfo = await db.collection("articles").findOne({ name: articleName });
@@ -30,7 +30,7 @@ app.get("blog/api/articles/:name", async (req, res) => {
     }, res);
 });
 
-app.post('blog/api/articles/:name/upvote', async (req, res) => {
+app.post('/api/articles/:name/upvote', async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const articleInfo = await db.collection("articles").findOne({ name: articleName });
@@ -44,7 +44,7 @@ app.post('blog/api/articles/:name/upvote', async (req, res) => {
     }, res);
 });
 
-app.post('blog/api/articles/:name/add-comment', async (req, res) => {
+app.post('/api/articles/:name/add-comment', async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const { username, text } = req.body;
