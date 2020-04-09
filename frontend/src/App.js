@@ -15,7 +15,7 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <Router basename='/blog/'>
+      <Router>
         <div className="App">
           <NavBar />
           <div id="page-body">
