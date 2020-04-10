@@ -5,7 +5,8 @@ import path from 'path';
 
 const app = express();
 
-app.use("/blog", express.static(path.join(__dirname, "/build")));
+const basename = "/blog";
+app.use(basename, express.static(path.join(__dirname, "/build")));
 app.use(bodyParser.json());
 
 const withDB = async (operations, res) => {
@@ -22,7 +23,7 @@ const withDB = async (operations, res) => {
     }
 }
 
-app.get("/api/articles/:name", async (req, res) => {
+app.get(path.join(basename, "api/articles/:name"), async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const articleInfo = await db.collection("articles").findOne({ name: articleName });
@@ -30,7 +31,7 @@ app.get("/api/articles/:name", async (req, res) => {
     }, res);
 });
 
-app.post('/api/articles/:name/upvote', async (req, res) => {
+app.post(path.join(basename, 'api/articles/:name/upvote'), async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const articleInfo = await db.collection("articles").findOne({ name: articleName });
@@ -44,7 +45,7 @@ app.post('/api/articles/:name/upvote', async (req, res) => {
     }, res);
 });
 
-app.post('/api/articles/:name/add-comment', async (req, res) => {
+app.post(path.join(basename,'api/articles/:name/add-comment'), async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const { username, text } = req.body;
