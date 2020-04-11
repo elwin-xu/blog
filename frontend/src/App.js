@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -15,7 +15,7 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <Router basename="/blog">
+      <BrowserRouter>
         <div className="App">
           <NavBar />
           <div id="page-body">
@@ -28,7 +28,7 @@ class App extends Component {
             </Switch>
           </div>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
