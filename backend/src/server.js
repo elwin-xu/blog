@@ -5,7 +5,7 @@ import path from 'path';
 
 const app = express();
 
-const basename = "/blog";
+const basename = "/";
 app.use(basename, express.static(path.join(__dirname, "/build")));
 app.use(bodyParser.json());
 
