@@ -21,8 +21,8 @@ const NavBar = () => (
                         </ul>
                         <ul className="uk-navbar-nav uk-hidden@s">
                             <li>
-                                <button className="uk-button uk-button-text"><span className="uk-navbar-toggle" data-uk-navbar-toggle-icon /></button>
-                                <div className="uk-navbar-dropdown">
+                                <button className="uk-button uk-button-link"><span className="uk-navbar-toggle" data-uk-navbar-toggle-icon /></button>
+                                <div className="uk-navbar-dropdown uk-background-primary uk-border-rounded">
                                     <ul className="uk-nav uk-navbar-dropdown-nav">
                                         <li><Link to="/">Home</Link></li>
                                         <li><Link to="/articles-list">Articles</Link></li>

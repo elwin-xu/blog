@@ -16,7 +16,7 @@ const HomePage = () => (
                             <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                         </div>
                         <div className="uk-card-footer">
-                            Read More
+                            <a href="#id">Read More</a>
                         </div>
                     </div>
                 </div>

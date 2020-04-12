@@ -1,19 +1,26 @@
-.uk-navbar a{
+.uk-logo, .uk-navbar-nav li a, .uk-navbar-toggle {
+  color: white !important;
 }
 
-.uk-navbar .uk-navbar-dropdown .social-link{
-  /* display: inline-block; */
+.uk-navbar-nav li a:hover, .uk-navbar-toggle:hover  {
+  color: black !important;
 }
+
+.uk-navbar-nav:first-child svg{
+  width: 25px !important;
+}
+
+
 .uk-card {
   border-radius: 6px;
 }
 
-.uk-card img{
+.uk-card img {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
 
-.uk-card .uk-card-title{
+.uk-card .uk-card-title {
   color: black !important;
 }
 
