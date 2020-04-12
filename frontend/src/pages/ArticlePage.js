@@ -42,6 +42,7 @@ const ArticlePage = ({ match }) => {
                 <h3>Other Articles:</h3>
                 <ArticlesList articles={otherArticles} />
             </article>
+            <button className="uk-button uk-button-link" data-uk-totop data-uk-scroll />
         </div>
 
     );

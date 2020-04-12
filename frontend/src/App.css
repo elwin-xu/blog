@@ -1,3 +1,13 @@
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+  min-height: 70px !important;
+}
+
+@media (max-width: 639px) {
+  .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+    min-height: 60px !important;
+  }
+}
+
 .uk-logo, .uk-navbar-nav li a, .uk-navbar-toggle {
   color: white !important;
 }
