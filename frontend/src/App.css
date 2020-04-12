@@ -1,4 +1,19 @@
-body {
+.uk-navbar {}
+
+.uk-card {
+  border-radius: 6px;
+}
+
+.uk-card img{
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.uk-card .uk-card-title{
+  color: black !important;
+}
+
+/* body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
 }
@@ -99,4 +114,4 @@ nav a:hover {
 .comment {
   border-bottom: 2px solid black;
   padding: 16px;
-}
+} */

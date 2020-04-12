@@ -23,18 +23,24 @@ const AddCommentForm = ({ articleName, setArticleInfo }) => {
     }
 
     return (
-        <div id="add-comment-form">
-            <h3>Add a Comment</h3>
-            <label>
-                Name:
-                <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-            </label>
-            <label>
-                Comment:
-                <textarea rows="4" cols="50" value={commentText} onChange={(event) => setCommentText(event.target.value)} />
-            </label>
-            <button onClick={() => addComment()}>Submit</button>
-        </div>
+        <>
+        <hr />
+        <form className="uk-form-stacked">
+            <legend class="uk-legend">Add Comment</legend>
+            <label className="uk-form-label uk-margin" for="form-stacked-name">Name:</label>
+            <div className="uk-form-controls">
+                <input className="uk-input" id="form-stacked-name" type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+            </div>
+            <label className="uk-form-label uk-margin" for="form-stacked-comment">Comment:</label>
+            <div className="uk-form-controls">
+                <textarea className="uk-textarea" id="form-stacked-comment" rows="4" cols="50" value={commentText} onChange={(event) => setCommentText(event.target.value)} />
+            </div>
+            <div className="uk-margin">
+                <button className="uk-button uk-button-primary" onClick={() => addComment()}>Submit</button>
+            </div>
+        </form>
+        <hr />
+        </>
     );
 }
 

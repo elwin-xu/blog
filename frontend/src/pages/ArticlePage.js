@@ -26,21 +26,24 @@ const ArticlePage = ({ match }) => {
     const otherArticles = articleContent.filter(article => article.name !== name);
 
     return (
-        <>
-            <h1>{article.title}</h1>
+        <div className="uk-container uk-container-small">
+            <article className="uk-article">
+                <h1 className="uk-article-title">{article.title}</h1>
 
-            <UpvotesSection name={name} upvotes={articleInfo.upvotes} setArticleInfo={setArticleInfo} />
+                <UpvotesSection name={name} upvotes={articleInfo.upvotes} setArticleInfo={setArticleInfo} />
 
-            {article.content.map((paragraph, key) => (
-                <p key={key}>{paragraph}</p>
-            ))}
+                {article.content.map((paragraph, key) => (
+                    <p key={key}>{paragraph}</p>
+                ))}
 
-            <CommentList comments={articleInfo.comments} />
-            <AddCommentForm articleName={name} setArticleInfo={setArticleInfo} />
+                <CommentList comments={articleInfo.comments} />
+                <AddCommentForm articleName={name} setArticleInfo={setArticleInfo} />
 
-            <h3>Other Articles:</h3>
-            <ArticlesList articles={otherArticles} />
-        </>
+                <h3>Other Articles:</h3>
+                <ArticlesList articles={otherArticles} />
+            </article>
+        </div>
+
     );
 }
 

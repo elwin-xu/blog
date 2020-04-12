@@ -4,6 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+import '../node_modules/uikit/dist/css/uikit.min.css';
+
+// loads the Icon plugin
+UIkit.use(Icons);
+
+// components can be called from the imported UIkit reference
+//UIkit.notification('Hello world.');
+
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
