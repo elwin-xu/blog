@@ -2,7 +2,7 @@ import React from 'react';
 import cardImg from '../images/flat.jpg';
 
 const HomePage = () => (
-    <div className="uk-section uk-section-primary">
+    <div className="uk-section">
         <div className="uk-container">
             <div className="uk-child-width-1-2@s uk-child-width-1-3@l" data-uk-grid uk-height-match="target: .uk-card-body; row: true">
                 <div>

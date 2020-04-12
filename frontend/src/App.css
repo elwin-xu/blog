@@ -1,5 +1,9 @@
-.uk-navbar {}
+.uk-navbar a{
+}
 
+.uk-navbar .uk-navbar-dropdown .social-link{
+  /* display: inline-block; */
+}
 .uk-card {
   border-radius: 6px;
 }
