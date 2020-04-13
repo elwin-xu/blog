@@ -16,18 +16,13 @@
   color: black !important;
 }
 
-.uk-navbar-nav:first-child svg{
-  width: 25px !important;
-}
-
-
 .uk-card {
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 
 .uk-card img {
-  border-top-right-radius: 6px;
-  border-top-left-radius: 6px;
+  /* border-top-right-radius: 6px; */
+  /* border-top-left-radius: 6px; */
 }
 
 .uk-card .uk-card-title {

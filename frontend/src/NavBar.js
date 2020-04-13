@@ -10,14 +10,14 @@ const NavBar = () => (
                         <a className="uk-navbar-item uk-logo" href="/">Zixuan's Tech Blog</a>
                         <ul className="uk-navbar-nav uk-visible@s">
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/articles-list">Articles</Link></li>
+                            <li><Link to="/articles-list">Blog</Link></li>
                             <li><Link to="/about">About</Link></li>
                         </ul>
                     </div>
                     <div className="uk-navbar-right">
                         <ul className="uk-navbar-nav uk-visible@s">
-                        <li className="social-link"><a href="https://github.com/zixuan-xu"><span uk-icon="icon: github" /></a></li>
-                        <li className="social-link"><a href="https://www.linkedin.com/in/zixuan-xu/"><span uk-icon="icon: linkedin" /></a></li>
+                        <li className="social-link"><a href="https://github.com/zixuan-xu"><span uk-icon="icon: github; ratio: 1.4" /></a></li>
+                        <li className="social-link"><a href="https://www.linkedin.com/in/zixuan-xu/"><span uk-icon="icon: linkedin; ratio: 1.4" /></a></li>
                         </ul>
                         <ul className="uk-navbar-nav uk-hidden@s">
                             <li>
