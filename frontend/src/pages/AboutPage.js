@@ -1,6 +1,8 @@
 import React from 'react';
 
 const AboutPage = () => (
+    <div className="uk-section">
+
     <div className="uk-container uk-container-small">
         <h1>About me</h1>
         <p>
@@ -43,6 +45,8 @@ const AboutPage = () => (
             </div>
             </p>
     </div>
+    </div>
+
 );
 
 export default AboutPage;
