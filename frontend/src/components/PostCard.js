@@ -15,7 +15,7 @@ const PostCard = ({ posts }) => (
                 <div>
                     <div className="uk-card-body">
                         <div style={{ "display": "flex" }}>
-                            <span>Mar 2019</span>
+                            <span>Apr 2020</span>
                             <ul className="uk-iconnav" style={{ "marginLeft": "auto" }}>
                                 <li><a href="#" uk-icon="icon: heart"></a></li>
                                 <li><a href="#" uk-icon="icon: comment"></a></li>
@@ -24,7 +24,7 @@ const PostCard = ({ posts }) => (
                         <div className="uk-margin">
                         <Link className="article-list-item" key={key} to={`/article/${post.name}`}>
                             <h3 className="uk-card-title">{post.title}</h3>
-                            <p>{post.content[0].substring(0, 150)}...</p>
+                            <p>{post.content[0].substring(0, 150)} ...</p>
                         </Link>
                         </div>
                     </div>

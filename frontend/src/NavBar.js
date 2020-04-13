@@ -11,7 +11,7 @@ const NavBar = () => (
                         <ul className="uk-navbar-nav uk-visible@s">
                             <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
                             <li><NavLink activeClassName="navbar-nav-active" to="/articles-list">Blog</NavLink></li>
-                            <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
+                            {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
                         </ul>
                     </div>
                     <div className="uk-navbar-right">
@@ -26,7 +26,7 @@ const NavBar = () => (
                                     <ul className="uk-nav uk-navbar-dropdown-nav">
                                         <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
                                         <li><NavLink activeClassName="navbar-nav-active" to="/articles-list">Blog</NavLink></li>
-                                        <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
+                                        {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
                                         <li className="uk-nav-divider"></li>
                                         <div className="uk-grid-small" data-uk-grid>
                                             <div>

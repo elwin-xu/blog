@@ -28,23 +28,26 @@ const ArticlePage = ({ match }) => {
     return (
     <div className="uk-section">
 
-        <div className="uk-container uk-container-small">
+        <div className="uk-container uk-container-small" >
+            <div style={{"border":"1px solid rgba(204,204,204,0.75)", "padding":"40px 40px"}}>
             <article className="uk-article">
                 <h1 className="uk-article-title">{article.title}</h1>
 
-                <UpvotesSection name={name} upvotes={articleInfo.upvotes} setArticleInfo={setArticleInfo} />
+                {/* <UpvotesSection name={name} upvotes={articleInfo.upvotes} setArticleInfo={setArticleInfo} /> */}
 
                 {article.content.map((paragraph, key) => (
                     <p key={key}>{paragraph}</p>
                 ))}
 
-                <CommentList comments={articleInfo.comments} />
-                <AddCommentForm articleName={name} setArticleInfo={setArticleInfo} />
+                
 
-                <h3>Other Articles:</h3>
-                <ArticlesList articles={otherArticles} />
+                {/* <h3>Other Articles:</h3> */}
+                {/* <ArticlesList articles={otherArticles} /> */}
             </article>
-            <button className="uk-button uk-button-link" data-uk-totop data-uk-scroll />
+            </div>
+            <CommentList comments={articleInfo.comments} />
+            <AddCommentForm articleName={name} setArticleInfo={setArticleInfo} />
+            {/* <button className="uk-button uk-button-link" data-uk-totop data-uk-scroll /> */}
         </div>
         </div>
 
