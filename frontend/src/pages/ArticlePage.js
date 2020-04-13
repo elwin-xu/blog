@@ -26,6 +26,8 @@ const ArticlePage = ({ match }) => {
     const otherArticles = articleContent.filter(article => article.name !== name);
 
     return (
+    <div className="uk-section">
+
         <div className="uk-container uk-container-small">
             <article className="uk-article">
                 <h1 className="uk-article-title">{article.title}</h1>
@@ -44,6 +46,8 @@ const ArticlePage = ({ match }) => {
             </article>
             <button className="uk-button uk-button-link" data-uk-totop data-uk-scroll />
         </div>
+        </div>
+
 
     );
 }

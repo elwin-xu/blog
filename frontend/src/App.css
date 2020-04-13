@@ -12,7 +12,9 @@
   color: white !important;
 }
 
-.uk-navbar-nav li a:hover, .uk-navbar-toggle:hover  {
+.uk-navbar-nav li a:hover, 
+.uk-navbar-toggle:hover, 
+.uk-navbar-nav .navbar-nav-active {
   color: black !important;
 }
 
