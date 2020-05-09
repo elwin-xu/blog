@@ -10,8 +10,8 @@ const NavBar = () => (
                         <a className="uk-navbar-item uk-logo" href="/">Zixuan's Tech Blog</a>
                         <ul className="uk-navbar-nav uk-visible@s">
                             <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
-                            <li><NavLink activeClassName="navbar-nav-active" to="/articles-list">Blog</NavLink></li>
-                            {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
+                            <li><NavLink activeClassName="navbar-nav-active" to="/articles">Articles</NavLink></li>
+                            <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
                         </ul>
                     </div>
                     <div className="uk-navbar-right">
@@ -25,8 +25,8 @@ const NavBar = () => (
                                 <div className="uk-navbar-dropdown uk-background-primary uk-border-rounded">
                                     <ul className="uk-nav uk-navbar-dropdown-nav">
                                         <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
-                                        <li><NavLink activeClassName="navbar-nav-active" to="/articles-list">Blog</NavLink></li>
-                                        {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
+                                        <li><NavLink activeClassName="navbar-nav-active" to="/articles">Articles</NavLink></li>
+                                        <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
                                         <li className="uk-nav-divider"></li>
                                         <div className="uk-grid-small" data-uk-grid>
                                             <div>
@@ -45,7 +45,7 @@ const NavBar = () => (
                 </nav>
             </div>
         </div>
-        <div class="uk-navbar-dropbar"></div>
+        <div className="uk-navbar-dropbar"></div>
     </div>
 
 );

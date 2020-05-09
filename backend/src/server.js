@@ -23,11 +23,39 @@ const withDB = async (operations, res) => {
     }
 }
 
-app.get(path.join(basename, "api/articles/:name"), async (req, res) => {
+
+app.get(path.join(basename, "api/articles"), async (req, res) => {
+    withDB(async (db) => {
+        const articles = await db.collection("articles").find({}).toArray();
+        res.status(200).json(articles);
+    }, res);
+});
+
+app.get(path.join(basename, "api/articles/:name"), async (req, res, next) => {
     withDB(async (db) => {
         const articleName = req.params.name;
-        const articleInfo = await db.collection("articles").findOne({ name: articleName });
-        res.status(200).json(articleInfo);
+        const article = await db.collection("articles").findOne({ slugified: articleName });
+        res.status(200).json(article);
+    }, res);
+});
+
+app.post(path.join(basename, 'api/articles/add'), async (req, res) => {
+    withDB(async (db) => {
+        const title = req.body.title;
+        const slugified = req.body.slugified;
+        const date = req.body.date;
+        const description = req.body.description;
+        const content = req.body.content;
+        db.collection('articles').insertOne({
+            title : title, 
+            slugified: slugified, 
+            date: date,
+            description: description,
+            content: content
+        });
+
+        const article = await db.collection("articles").findOne({});
+        res.status(200).json(article);
     }, res);
 });
 
@@ -45,7 +73,7 @@ app.post(path.join(basename, 'api/articles/:name/upvote'), async (req, res) => {
     }, res);
 });
 
-app.post(path.join(basename,'api/articles/:name/add-comment'), async (req, res) => {
+app.post(path.join(basename, 'api/articles/:name/add-comment'), async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const { username, text } = req.body;
@@ -58,6 +86,12 @@ app.post(path.join(basename,'api/articles/:name/add-comment'), async (req, res) 
         const updatedArticleInfo = await db.collection("articles").findOne({ name: articleName });
         res.status(200).json(updatedArticleInfo);
     }, res);
+});
+
+app.get(path.join(basename, "api/test"), async (req, res) => {
+    // const articleName = req.params.name;
+    // const articleInfo = await db.collection("articles").findOne({ name: articleName });
+    res.status(200).json({a1:"1", a2:"2"});
 });
 
 app.get("*", (req, res) => {

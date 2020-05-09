@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import AddArticle from './pages/AddArticle';
 import ArticlesListPage from './pages/ArticlesListPage';
 import ArticlePage from './pages/ArticlePage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -21,9 +22,10 @@ class App extends Component {
           <div id="page-body">
             <Switch>
               <Route path="/" component={HomePage} exact />
-              <Route path="/about" component={AboutPage} />
-              <Route path="/articles-list" component={ArticlesListPage} />
-              <Route path="/article/:name" component={ArticlePage} />
+              <Route path="/about" component={AboutPage} exact />
+              <Route path="/articles" component={ArticlesListPage} exact />
+              <Route path="/articles/add" component={AddArticle} exact />
+              <Route path="/articles/:name" component={ArticlePage} exact />
               <Route component={NotFoundPage} />
             </Switch>
           </div>
