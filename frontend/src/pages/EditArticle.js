@@ -17,7 +17,7 @@ class EditArticle extends Component {
 
     cancel(e) {
         e.preventDefault();
-        this.props.history.push(`/articles`);
+        this.props.history.push(`/articles/${this.state.slugified}`);
     }
 
     async submit(e) {
