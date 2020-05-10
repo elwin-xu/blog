@@ -7,6 +7,7 @@ import {
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import AddArticle from './pages/AddArticle';
+import EditArticle from './pages/EditArticle';
 import ArticlesListPage from './pages/ArticlesListPage';
 import ArticlePage from './pages/ArticlePage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -25,6 +26,7 @@ class App extends Component {
               <Route path="/about" component={AboutPage} exact />
               <Route path="/articles" component={ArticlesListPage} exact />
               <Route path="/articles/add" component={AddArticle} exact />
+              <Route path="/articles/edit/:name" component={EditArticle} exact />
               <Route path="/articles/:name" component={ArticlePage} exact />
               <Route component={NotFoundPage} />
             </Switch>

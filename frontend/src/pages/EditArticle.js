@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import slugify from 'slugify';
 import { withRouter } from 'react-router-dom';
+import NotFoundPage from './NotFoundPage';
 
-class AddArticle extends Component {
+class EditArticle extends Component {
     constructor(props) {
         super(props)
         this.state = {
             title: '',
             description: '',
             content: '',
-            date: Date.now()
+            loading: true,
+            slugified: ''
         }
     }
 
-    cancel(e){
+    cancel(e) {
         e.preventDefault();
         this.props.history.push(`/articles`);
     }
@@ -28,38 +30,58 @@ class AddArticle extends Component {
             return
         }
 
-        await fetch(`/api/articles/add`, {
-            method: "POST",
+        await fetch(`/api/articles/edit/${this.state.slugified}`, {
+            method: "PUT",
             body: JSON.stringify({
                 title: this.state.title,
                 slugified: slugify(this.state.title),
                 description: this.state.description,
-                content: this.state.content,
-                date: new Date()
+                content: this.state.content
             }),
             headers: {
                 "Content-Type": "application/json"
             }
         });
 
-
-     
         this.props.history.push(`/articles/${slugify(this.state.title)}`);
-
         // this.setState({
         //     title: '',
         //     description: '',
         //     content: '',
         // })
+    }
 
+    async componentDidMount() {
+        const name = this.props.match.params.name
+        const res = await fetch(`/api/articles/${name}`)
+        const article = await res.json()
+        if (article == null){
+            this.setState({loading: false})
+        }
+        else{
+            this.setState({
+                title: article.title,
+                slugified: article.slugified,
+                description: article.description,
+                content: article.content,
+                loading: false
+            })
+        }
+        
     }
 
     render() {
+        // Check if fetching is finished
+        if (this.state.loading === true) return (<div></div>)
+        
+        // Check if found the article
+        if (this.state.slugified === '') return <NotFoundPage />
+
         return (
             <div className="uk-section">
                 <div className="uk-container uk-container-small">
                     <form className="uk-form-stacked">
-                        <legend className="uk-legend">Add Article</legend>
+                        <legend className="uk-legend">Edit Article</legend>
 
                         <label className="uk-form-label uk-margin" for="form-stacked-title">Title:</label>
                         <div className="uk-form-controls">
@@ -105,4 +127,4 @@ class AddArticle extends Component {
     }
 }
 
-export default withRouter(AddArticle);
+export default withRouter(EditArticle);

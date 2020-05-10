@@ -46,9 +46,9 @@ app.post(path.join(basename, 'api/articles/add'), async (req, res) => {
         const date = req.body.date;
         const description = req.body.description;
         const content = req.body.content;
-        db.collection('articles').insertOne({
-            title : title, 
-            slugified: slugified, 
+        await db.collection('articles').insertOne({
+            title: title,
+            slugified: slugified,
             date: date,
             description: description,
             content: content
@@ -56,6 +56,25 @@ app.post(path.join(basename, 'api/articles/add'), async (req, res) => {
 
         const article = await db.collection("articles").findOne({});
         res.status(200).json(article);
+    }, res);
+});
+
+app.put(path.join(basename, 'api/articles/edit/:name'), async (req, res) => {
+    withDB(async (db) => {
+        const title = req.body.title;
+        const slugified = req.body.slugified;
+        const description = req.body.description;
+        const content = req.body.content;
+        await db.collection('articles').updateOne({ slugified: req.params.name }, {
+            "$set": {
+                title: title,
+                slugified: slugified,
+                description: description,
+                content: content
+            }
+        });
+
+        res.status(200).send("success")
     }, res);
 });
 
@@ -91,7 +110,7 @@ app.post(path.join(basename, 'api/articles/:name/add-comment'), async (req, res)
 app.get(path.join(basename, "api/test"), async (req, res) => {
     // const articleName = req.params.name;
     // const articleInfo = await db.collection("articles").findOne({ name: articleName });
-    res.status(200).json({a1:"1", a2:"2"});
+    res.status(200).json({ a1: "1", a2: "2" });
 });
 
 app.get("*", (req, res) => {
