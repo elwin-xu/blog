@@ -59,6 +59,13 @@ app.post(path.join(basename, 'api/articles/add'), async (req, res) => {
     }, res);
 });
 
+app.delete(path.join(basename, "api/articles/delete/:name"), async (req, res) => {
+    withDB(async (db) => {
+        const article = await db.collection("articles").deleteOne({ slugified: req.params.name });
+        res.status(200).send('success');
+    }, res);
+});
+
 app.put(path.join(basename, 'api/articles/edit/:name'), async (req, res) => {
     withDB(async (db) => {
         const title = req.body.title;
