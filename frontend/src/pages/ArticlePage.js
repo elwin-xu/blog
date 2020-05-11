@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ArticlesList from '../components/ArticlesList';
+// import ArticlesList from '../components/ArticlesList';
 import NotFoundPage from './NotFoundPage';
-import articleContent from './article-content';
-import CommentList from '../components/CommentList';
-import UpvotesSection from '../components/UpvotesSection';
-import AddCommentForm from '../components/AddCommentForm';
+// import articleContent from './article-content';
+// import CommentList from '../components/CommentList';
+// import UpvotesSection from '../components/UpvotesSection';
+// import AddCommentForm from '../components/AddCommentForm';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from "../components/CodeBlock";
 
@@ -35,7 +35,7 @@ const ArticlePage = ({ match }) => {
     return (
         <div className="uk-section">
 
-            <div className="uk-container uk-container-small" >
+            <div className="uk-container uk-container-xsmall" >
                 <article className="uk-article">
                     <ReactMarkdown source={article.content} renderers={{ code: CodeBlock }} />
 

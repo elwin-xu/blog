@@ -24,12 +24,12 @@ class ArticlesListPage extends Component {
             <div className="uk-section">
                 <div className="uk-container uk-container-small">
 
-                    <ul data-uk-tab uk-switcher="">
+                    {/* <ul data-uk-tab uk-switcher="">
                         <li><a href="#">All</a></li>
                         <li><a href="#">React</a></li>
                         <li><a href="#">Git</a></li>
                         <li><a href="#">HTML</a></li>
-                    </ul>
+                    </ul> */}
 
                     <ul className="uk-switcher">
                         <li></li>
