@@ -26,7 +26,8 @@ const withDB = async (operations, res) => {
 
 app.get(path.join(basename, "api/articles"), async (req, res) => {
     withDB(async (db) => {
-        const articles = await db.collection("articles").find({}).toArray();
+        const articles = await db.collection("articles").find({}).sort({date: -1}).toArray();
+        console.log(articles);
         res.status(200).json(articles);
     }, res);
 });
