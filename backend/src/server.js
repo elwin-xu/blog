@@ -2,11 +2,29 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import path from 'path';
+import multer from 'multer';
+
+const storage = multer.diskStorage({
+    destination: 'src/static',
+    filename: (req, file, callback) => {
+        callback(null, new Date().toISOString() + file.originalname);
+    }
+})
+
+const fileFilter = (req, file, callback) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'png') {
+        callback(null, true)
+    } else {
+        callback(null, false)
+    }
+}
+const upload = multer({storage: storage ,fileFilter: fileFilter});
 
 const app = express();
 
 const basename = "/";
 app.use(basename, express.static(path.join(__dirname, "/build")));
+app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(bodyParser.json());
 
 const withDB = async (operations, res) => {
@@ -27,12 +45,11 @@ const withDB = async (operations, res) => {
 app.get(path.join(basename, "api/articles"), async (req, res) => {
     withDB(async (db) => {
         const articles = await db.collection("articles").find({}).sort({date: -1}).toArray();
-        console.log(articles);
         res.status(200).json(articles);
     }, res);
 });
 
-app.get(path.join(basename, "api/articles/:name"), async (req, res, next) => {
+app.get(path.join(basename, "api/articles/:name"), async (req, res) => {
     withDB(async (db) => {
         const articleName = req.params.name;
         const article = await db.collection("articles").findOne({ slugified: articleName });
@@ -40,23 +57,25 @@ app.get(path.join(basename, "api/articles/:name"), async (req, res, next) => {
     }, res);
 });
 
-app.post(path.join(basename, 'api/articles/add'), async (req, res) => {
+app.post(path.join(basename, 'api/articles'), upload.single('cover'), async (req, res) => {
     withDB(async (db) => {
+        console.log(req.file);
         const title = req.body.title;
         const slugified = req.body.slugified;
         const date = req.body.date;
         const description = req.body.description;
         const content = req.body.content;
+        const cover = req.file.path.substring(4);
         await db.collection('articles').insertOne({
             title: title,
             slugified: slugified,
             date: date,
             description: description,
-            content: content
-        });
+            content: content,
+            cover: cover
+        }); 
 
-        const article = await db.collection("articles").findOne({});
-        res.status(200).json(article);
+        res.sendStatus(200);
     }, res);
 });
 

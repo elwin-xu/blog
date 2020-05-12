@@ -1,5 +1,4 @@
 import React from 'react';
-import cardImg from '../images/flat.jpg';
 import { Link } from 'react-router-dom';
 
 
