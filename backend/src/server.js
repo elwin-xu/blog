@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, callback) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         callback(null, true)
     } else {
         callback(null, false)
@@ -59,7 +59,6 @@ app.get(path.join(basename, "api/articles/:name"), async (req, res) => {
 
 app.post(path.join(basename, 'api/articles'), upload.single('cover'), async (req, res) => {
     withDB(async (db) => {
-        console.log(req.file);
         const title = req.body.title;
         const slugified = req.body.slugified;
         const date = req.body.date;
