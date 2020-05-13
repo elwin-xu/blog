@@ -16,7 +16,8 @@ const ArticlePage = ({ match }) => {
         title: '',
         slugified: '',
         content: '',
-        date: new Date()
+        date: new Date(),
+        cover: ''
     });
 
     useEffect(() => {
@@ -34,9 +35,10 @@ const ArticlePage = ({ match }) => {
 
     return (
         <div className="uk-section">
-
             <div className="uk-container uk-container-xsmall" >
                 <article className="uk-article">
+                    <h1>{article.title}</h1>
+                    <img data-src={article.cover} width="750" height="400" alt="cover" uk-img=""></img>
                     <ReactMarkdown source={article.content} renderers={{ code: CodeBlock }} />
 
                     {/* <h3>Other Articles:</h3> */}
