@@ -1,6 +1,6 @@
 /* ---------- Overall ----------*/
 body, h1, h2, h3, h4, h5, h6, a {
-  font-family: sans-serif !important;
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
@@ -58,7 +58,6 @@ textarea {
   color: #e84a43;
   fill: #e84a43;
 }
-
 
 
 /* body {
