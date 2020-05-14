@@ -7,7 +7,7 @@ class ArticlesListPage extends Component {
         this.state = { articles: [] }
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         let res = await fetch('/api/articles')
         let articles = await res.json()
         this.setState({

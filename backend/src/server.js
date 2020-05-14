@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import path from 'path';
@@ -49,10 +49,30 @@ app.get(path.join(basename, "api/articles"), async (req, res) => {
     }, res);
 });
 
+app.get(path.join(basename, "api/test"), async (req, res) => {
+    withDB(async (db) => {
+        console.log(req.query.title);
+        res.sendStatus(200);
+    }, res);
+});
+
+
 app.get(path.join(basename, "api/articles/:name"), async (req, res) => {
     withDB(async (db) => {
-        const articleName = req.params.name;
-        const article = await db.collection("articles").findOne({ slugified: articleName });
+        const article = await db.collection("articles").findOne(
+            { 
+                slugified: req.params.name 
+            }, {
+                projection: {
+                    title: 1,
+                    slugified: 1,
+                    date: 1,
+                    description: 1,
+                    content: 1,
+                    cover: 1,
+                    likeCount: 1,
+                    likes: {"$elemMatch": {"$eq": req.query.uuid}}
+                }});
         res.status(200).json(article);
     }, res);
 });
@@ -99,6 +119,42 @@ app.put(path.join(basename, 'api/articles/edit/:name'), async (req, res) => {
                 content: content
             }
         });
+
+        res.status(200).send("success")
+    }, res);
+});
+
+app.post(path.join(basename, 'api/articles/:name/like'), async (req, res) => {
+    withDB(async (db) => {
+        const uuid = req.body.uuid;
+        await db.collection('articles').updateOne(
+            {
+                slugified: req.params.name,
+                likes: {"$ne": uuid}
+            }, 
+            {
+                "$inc": {likeCount: 1},
+                "$push": {likes: uuid}
+            }
+        );
+
+        res.status(200).send("success")
+    }, res);
+});
+
+app.post(path.join(basename, 'api/articles/:name/dislike'), async (req, res) => {
+    withDB(async (db) => {
+        const uuid = req.body.uuid;
+        await db.collection('articles').updateOne(
+            {
+                slugified: req.params.name,
+                likes: uuid
+            }, 
+            {
+                "$inc": {likeCount: -1},
+                "$pull": {likes: uuid}
+            }
+        );
 
         res.status(200).send("success")
     }, res);

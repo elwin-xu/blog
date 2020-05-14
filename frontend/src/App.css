@@ -41,6 +41,11 @@ textarea {
   text-decoration: none;
 }
 
+.like-button svg path {
+  color: #e84a43;
+  fill: #e84a43;
+}
+
 /* body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;

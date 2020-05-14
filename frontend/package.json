@@ -11,7 +11,8 @@
     "react-scripts": "2.1.8",
     "react-syntax-highlighter": "^12.2.1",
     "slugify": "^1.4.0",
-    "uikit": "^3.4.0"
+    "uikit": "^3.4.0",
+    "uuid": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

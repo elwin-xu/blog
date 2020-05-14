@@ -8,6 +8,12 @@ import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 import '../node_modules/uikit/dist/css/uikit.min.css';
 
+import { v4 as uuidv4 } from 'uuid';
+if (window.localStorage.getItem('uuid') == null){
+    window.localStorage.setItem("uuid", uuidv4());
+}
+
+
 // loads the Icon plugin
 UIkit.use(Icons);
 
