@@ -25,7 +25,7 @@ class PostCard extends Component {
                                 </div>
                                 <div className="uk-margin">
                                     <Link className="article-list-item" key={key} to={`/articles/${post.slugified}`}>
-                                        <h3 className="uk-card-title">{post.title}</h3>
+                                        <h2 className="uk-card-title">{post.title}</h2>
                                         <p>{post.description}</p>
                                     </Link>
                                 </div>
