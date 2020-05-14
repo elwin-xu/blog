@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import LikeButton from './LikeButton'
 
 class PostCard extends Component {
     render() {
@@ -18,8 +19,8 @@ class PostCard extends Component {
                                 <div style={{ "display": "flex" }}>
                                     <span>{new Date(post.date).toLocaleDateString()}</span>
                                     <ul className="uk-iconnav" style={{ "marginLeft": "auto" }}>
-                                        <li key="heart"><a href="#" uk-icon="icon: heart"></a></li>
-                                        <li key="comment"><a href="#" uk-icon="icon: comment"></a></li>
+                                        <li key="heart"><LikeButton article={post} /></li>
+                                        {/* <li key="comment"><a href="#" uk-icon="icon: comment"></a></li> */}
                                     </ul>
                                 </div>
                                 <div className="uk-margin">

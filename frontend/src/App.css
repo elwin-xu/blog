@@ -41,7 +41,7 @@ textarea {
   text-decoration: none;
 }
 
-.like-button svg path {
+.like-button-liked svg path {
   color: #e84a43;
   fill: #e84a43;
 }
