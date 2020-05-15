@@ -6,8 +6,7 @@ class LikeButton extends Component {
         this.uuid = window.localStorage.getItem("uuid");
         this.state = {
             likeCount: 0,
-            liked: false,
-            likes: []
+            liked: false
         }
     }
 

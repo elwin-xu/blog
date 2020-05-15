@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import CommentSingle from './CommentSingle';
+
 
 class CommentSection extends Component {
     constructor(props) {
         super(props);
         this.textarea = React.createRef();
+        this.state = {
+            validated: false
+        }
     }
 
     adjustHeight() {
@@ -12,11 +17,22 @@ class CommentSection extends Component {
         node.style.height = (node.scrollHeight + 2) + "px";
     }
 
+    handleSubmit(e) {
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        this.setState({validated: true});
+    }
+
     render() {
+        const className = "needs-validation" + (this.state.validated ? ' was-validated' : '');
         return (
             <div className="comment-section">
 
-                <form class="needs-validation" noValidate>
+                <form className={className} noValidate onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-group">
                         <input
                             required
@@ -57,74 +73,20 @@ class CommentSection extends Component {
                 <hr />
 
 
-                <ul class="uk-comment-list">
-                    <li>
-                        <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                            <header class="uk-comment-header uk-position-relative uk-margin-remove">
-                                <div class="uk-grid-medium uk-flex-middle">
-                                    <div class="uk-width-expand">
-                                        <h4 class="uk-comment-title uk-margin-remove"><span class="uk-link-reset">James</span></h4>
-                                        <p class="uk-comment-meta uk-margin-remove"><span class="uk-link-reset">12 days ago</span></p>
-                                    </div>
-                                </div>
-                            </header>
-                            <div class="uk-comment-body uk-margin-small">
-                                <p>The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.</p>
-                            </div>
-                        </article>
-                        <ul>
-                            <li>
-                                <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                                    <header class="uk-comment-header uk-position-relative uk-margin-remove">
-                                        <div class="uk-grid-medium uk-flex-middle">
-                                            <div class="uk-width-expand">
-                                                <h4 class="uk-comment-title uk-margin-remove"><span class="uk-link-reset">James</span></h4>
-                                                <p class="uk-comment-meta uk-margin-remove"><span class="uk-link-reset">12 days ago</span></p>
-                                            </div>
-                                        </div>
-                                    </header>
-                                    <div class="uk-comment-body uk-margin-small">
-                                        <p>The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.</p>
-                                    </div>
-                                </article>
+                <ul className="uk-comment-list">
+                    {this.props.comments.map((comment) => {
+                        return (
+                            <li key={comment['_id']}>
+                                <CommentSingle comment={comment} />
+                                <ul>
+                                    {comment.replies.map((reply) => {
+                                        return <li key={reply['_id']}>{<CommentSingle comment={reply} />}</li>
+                                    })}
+                                </ul>
                             </li>
-                            <li>
-                                <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                                    <header class="uk-comment-header uk-position-relative uk-margin-remove">
-                                        <div class="uk-grid-medium uk-flex-middle">
-                                            <div class="uk-width-expand">
-                                                <h4 class="uk-comment-title uk-margin-remove"><span class="uk-link-reset">James</span></h4>
-                                                <p class="uk-comment-meta uk-margin-remove"><span class="uk-link-reset">12 days ago</span></p>
-                                            </div>
-                                        </div>
-                                    </header>
-                                    <div class="uk-comment-body uk-margin-small">
-                                        <p>The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.</p>
-                                    </div>
-                                </article>
-
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                    <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                                    <header class="uk-comment-header uk-position-relative uk-margin-remove">
-                                        <div class="uk-grid-medium uk-flex-middle">
-                                            <div class="uk-width-expand">
-                                                <h4 class="uk-comment-title uk-margin-remove"><span class="uk-link-reset">James</span></h4>
-                                                <p class="uk-comment-meta uk-margin-remove"><span class="uk-link-reset">12 days ago</span></p>
-                                            </div>
-                                        </div>
-                                    </header>
-                                    <div class="uk-comment-body uk-margin-small">
-                                        <p>The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.</p>
-                                    </div>
-                                </article>
-
-                    </li>
+                        )
+                    })}
                 </ul>
-
-
 
 
 
