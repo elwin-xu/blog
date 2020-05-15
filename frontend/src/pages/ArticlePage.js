@@ -8,6 +8,7 @@ import NotFoundPage from './NotFoundPage';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from "../components/CodeBlock";
 import LikeButton from "../components/LikeButton";
+import CommentSection from '../components/CommentSection';
 
 class ArticlePage extends Component {
     constructor(props) {
@@ -46,8 +47,8 @@ class ArticlePage extends Component {
                         </div>
                         <img data-src={this.state.article.cover} width="750" height="400" alt="cover" uk-img=""></img>
                         <ReactMarkdown source={this.state.article.content} renderers={{ code: CodeBlock }} />
-                        {/* <h3>Other Articles:</h3> */}
-                        {/* <ArticlesList articles={otherArticles} /> */}
+                        <hr />
+                        <CommentSection />
                     </article>
                     {/* <CommentList comments={articleInfo.comments} /> */}
                     {/* <AddCommentForm articleName={name} setArticleInfo={setArticleInfo} /> */}

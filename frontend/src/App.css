@@ -23,6 +23,7 @@ h1, h2, h3 {
 
 textarea {
   resize: none ;
+  /* overflow: hidden; */
 }
 
 @media (max-width: 639px) {
@@ -59,6 +60,12 @@ textarea {
   fill: #e84a43;
 }
 
+
+/* ---------- Comment Section ----------*/
+.comment-section textarea {
+  height: 38px;
+  max-height: 300px;
+}
 
 /* body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

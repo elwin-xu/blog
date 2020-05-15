@@ -23,7 +23,6 @@ class AddArticle extends Component {
 
         // alert(`${this.fileInput.current.files[0].name}`);
 
-
         if (this.state.title === '' ||
             this.state.description === '' ||
             this.state.content === '') {

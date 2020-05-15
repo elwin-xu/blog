@@ -13,7 +13,6 @@ if (window.localStorage.getItem('uuid') == null){
     window.localStorage.setItem("uuid", uuidv4());
 }
 
-
 // loads the Icon plugin
 UIkit.use(Icons);
 
