@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import CodeBlock from "../components/CodeBlock";
 import LikeButton from "../components/LikeButton";
 import CommentSection from '../components/CommentSection';
+import UIkit from 'uikit';
 
 class ArticlePage extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class ArticlePage extends Component {
         this.uuid = window.localStorage.getItem('uuid');
         this.state = {
             article: null,
-            loading: true
+            loading: true,
         }
     }
     // const article = articleContent.find(article => article.name === name);
@@ -28,6 +29,24 @@ class ArticlePage extends Component {
             article: (article != null) ? article : null,
             loading: false
         });
+
+        //, ()=>{
+            // if (document.URL.includes("#comment-section")) {
+            //     // Scroll to a certain element
+            //         const element = document.querySelector('#comment-section');
+            //         const y = element.getBoundingClientRect().top + window.pageYOffset;
+    
+            //         window.scrollTo({ top: y, behavior: 'smooth' });
+            // }
+        //}
+    }
+
+    componentDidUpdate() {
+        if (window.location.href.includes("#comment-section")){
+            UIkit.scroll().scrollTo("#comment-section");
+            // window.location.href = window.location.href.replace("#comment-section","")
+            // window.history.pushState("object or string", "Title", window.location.href.replace("#comment-section",""));
+        }
     }
 
     render() {
@@ -45,7 +64,7 @@ class ArticlePage extends Component {
 
         // Check if found the article
         if (this.state.article == null) return <NotFoundPage />;
-
+        
         return (
             <div className="uk-section">
                 <div className="uk-container uk-container-xsmall" >
@@ -54,6 +73,17 @@ class ArticlePage extends Component {
                         <h1>{this.state.article.title}</h1>
                         <div className="uk-margin">
                             <LikeButton article={this.state.article} />
+                            <span>
+                                <a
+                                    href="#comment-section"
+                                    data-uk-scroll
+                                    className="uk-margin-left"
+                                    style={{ color: "black" }}
+                                >
+                                    <button uk-icon="icon: comment" style={{ outline: "none" }} />
+                                </a>
+                                <span className="uk-margin-small-left">{this.state.article.commentCount}</span>
+                            </span>
                         </div>
                         <img data-src={this.state.article.cover} width="750" height="400" alt="cover" uk-img=""></img>
                         <ReactMarkdown source={this.state.article.content} renderers={{ code: CodeBlock }} />

@@ -89,14 +89,18 @@ app.post(path.join(basename, 'api/articles'), upload.single('cover'), async (req
         const date = req.body.date;
         const description = req.body.description;
         const content = req.body.content;
-        const cover = req.file.path.substring(4);
+        const cover = req.file.path.substring(3);
         await db.collection('articles').insertOne({
             title: title,
             slugified: slugified,
             date: date,
             description: description,
             content: content,
-            cover: cover
+            cover: cover,
+            likeCount: 0,
+            likes: [],
+            commentCount: 0,
+            comments: []
         });
 
         res.sendStatus(200);
@@ -216,6 +220,61 @@ app.post(path.join(basename, 'api/articles/:name/edit-reply'), async (req, res) 
     }, res);
 });
 
+app.post(path.join(basename, 'api/articles/:name/delete-reply'), async (req, res) => {
+    withDB(async (db) => {
+        await db.collection('articles').updateOne(
+            {
+                slugified: req.params.name
+            },
+            {
+                "$inc": {commentCount: -1},
+                "$pull": {
+                    "comments.$[comment].replies": {_id: new ObjectID(req.body.replyID)}
+                }
+            },
+            {
+                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID)}],
+                upsert: true,
+            }
+        );
+
+        const article = await db.collection('articles').findOne({slugified: req.params.name});
+        res.status(200).json(article.comments);
+    }, res);
+});
+
+app.post(path.join(basename, 'api/articles/:name/delete-comment'), async (req, res) => {
+    withDB(async (db) => {
+        const article0 = await db.collection('articles').findOne(
+            {
+                slugified: req.params.name
+            },
+            {
+                projection: {
+                    comments: { "$elemMatch": { _id: new ObjectID(req.body.baseCommentID) } },
+                }
+            }
+        )
+
+        const replies = article0.comments[0].replies.length
+
+        await db.collection('articles').updateOne(
+            {
+                slugified: req.params.name
+            },
+            {
+                "$inc": {commentCount: -1-replies},
+                "$pull": {
+                    "comments": {_id: new ObjectID(req.body.baseCommentID)}
+                }
+            }
+        );
+
+        const article = await db.collection('articles').findOne({slugified: req.params.name});
+        res.status(200).json(article.comments);
+    }, res);
+});
+
 app.post(path.join(basename, 'api/articles/:name/add-reply'), async (req, res) => {
     withDB(async (db) => {
         await db.collection('articles').updateOne(
@@ -238,7 +297,7 @@ app.post(path.join(basename, 'api/articles/:name/add-reply'), async (req, res) =
                 }
             },
             {
-                arrayFilters: [{ "comment._id": new ObjectID(req.body.replyToID)}],
+                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID)}],
                 upsert: true
             }
         );

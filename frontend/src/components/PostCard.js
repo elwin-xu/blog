@@ -20,7 +20,17 @@ class PostCard extends Component {
                                     <span>{new Date(post.date).toLocaleDateString()}</span>
                                     <ul className="uk-iconnav" style={{ "marginLeft": "auto" }}>
                                         <li key="heart"><LikeButton article={post} /></li>
-                                        {/* <li key="comment"><a href="#" uk-icon="icon: comment"></a></li> */}
+                                        <li key="comment">
+                                        <span>
+                                            <Link
+                                                to={`/articles/${post.slugified}#comment-section`}
+                                                className="uk-margin-small-left"
+                                            >
+                                                <button uk-icon="icon: comment" style={{ outline: "none", color: "black"  }} />
+                                            </Link>
+                                            <span className="uk-margin-small-left">{post.commentCount}</span>
+                                        </span>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="uk-margin">

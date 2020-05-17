@@ -19,19 +19,19 @@ class CommentSection extends Component {
     render() {
         if (this.state.comments.length === 0) {
             return (
-                <div className="comment-section">
-                <hr />
-                <div className="uk-text-center">
-                    Be the first to leave a comment!
+                <div className="comment-section" id="comment-section">
+                    <hr />
+                    <div className="uk-text-center">
+                        Be the first to leave a comment!
                 </div>
-                <hr />
-                <AddCommentForm slugified={this.props.slugified} onSubmit={this.handleSubmit} />
+                    <hr />
+                    <AddCommentForm slugified={this.props.slugified} onSubmit={this.handleSubmit} />
                 </div>
             )
         }
 
         return (
-            <div className="comment-section">
+            <div className="comment-section" id="comment-section">
                 <hr />
                 <ul className="uk-comment-list">
                     {this.state.comments.map((comment) => {
@@ -56,6 +56,16 @@ class CommentSection extends Component {
                         }
                     })}
                 </ul>
+                {/* <div id="modal-delete-comment" data-uk-modal bg-close="false">
+                    <div class="uk-modal-dialog uk-modal-body">
+                        <h2 class="uk-modal-title">Deleting Comment</h2>
+                        <p>Are you sure to delete the comment?</p>
+                        <p class="uk-text-right">
+                            <button class="btn btn-secondary uk-modal-close" type="button">Cancel</button>
+                            <button className="btn btn-primary uk-margin-left" type="button" </button>
+                        </p>
+                    </div>
+                </div> */}
                 <hr />
                 <AddCommentForm slugified={this.props.slugified} onSubmit={this.handleSubmit} />
             </div>

@@ -37,7 +37,7 @@ class AddCommentForm extends Component {
                         comment: this.state.comment,
                         uuid: this.uuid,
                         replyTo: this.props.comment.name,
-                        replyToID: this.props.baseCommentID
+                        baseCommentID: this.props.baseCommentID
                     }),
                     headers: {
                         "Content-Type": "application/json"
@@ -66,7 +66,7 @@ class AddCommentForm extends Component {
                 )
             }
 
-            this.setState({ name: "", comment: "", validated: false });
+            this.setState({ name: "", comment: "", validated: false }, ()=>{this.adjustHeight()});
             // this.setState({hidden: true})
         }
 
@@ -83,7 +83,7 @@ class AddCommentForm extends Component {
                         required
                         type="text"
                         name="name"
-                        className="form-control"
+                        className="form-control uk-input"
                         value={this.state.name}
                         onChange={(e) => this.setState({ name: e.target.value })}
                         placeholder="Name" />
@@ -97,7 +97,7 @@ class AddCommentForm extends Component {
                         type="text"
                         name="comment"
                         ref={this.textarea}
-                        className="form-control"
+                        className="form-control uk-textarea"
                         onInput={() => { this.adjustHeight() }}
                         value={this.state.comment}
                         onChange={(e) => this.setState({ comment: e.target.value })}
@@ -106,7 +106,7 @@ class AddCommentForm extends Component {
                         Please enter a valid comment.
                         </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="uk-button uk-button-primary">Submit</button>
             </form>
         );
     }
