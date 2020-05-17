@@ -82,9 +82,9 @@ class CommentSingle extends Component {
                     })}
                 </div>
                 <div>
-                    <button uk-icon="icon: heart" style={{ outline: "none" }} />
-                    <span className="uk-margin-small-left">{this.props.comment.likeCount}</span>
-                    <button uk-toggle={replyToggleName} ref={this.toggle} type="button" className="uk-margin-left " uk-icon="icon: reply" style={{ outline: "none" }} />
+                    {/* <button uk-icon="icon: heart" style={{ outline: "none" }} /> */}
+                    {/* <span className="uk-margin-small-left">{this.props.comment.likeCount}</span> */}
+                    <button uk-toggle={replyToggleName} ref={this.toggle} type="button" className="" uk-icon="icon: reply" style={{ outline: "none" }} />
                     {this.props.comment.uuid === this.uuid ? <button className="uk-margin-left " uk-icon="icon: trash" style={{ outline: "none" }} onClick={()=>{this.onDelete(this.props.slugified, this.props.baseCommentID, this.props.comment)}} /> : null}
                     <AddCommentForm baseCommentID={this.props.baseCommentID} comment={this.props.comment} slugified={this.props.slugified} onSubmit={this.onSubmit} />
                 </div>
