@@ -1,95 +1,63 @@
 import React, { Component } from 'react';
 import CommentSingle from './CommentSingle';
-
+import AddCommentForm from './AddCommentForm';
 
 class CommentSection extends Component {
     constructor(props) {
         super(props);
-        this.textarea = React.createRef();
         this.state = {
-            validated: false
-        }
-    }
-
-    adjustHeight() {
-        const node = this.textarea.current;
-        node.style.height = ""
-        node.style.height = (node.scrollHeight + 2) + "px";
-    }
-
-    handleSubmit(e) {
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
+            comments: props.comments
         }
 
-        this.setState({validated: true});
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleSubmit(comments) {
+        this.setState({ comments: comments })
     }
 
     render() {
-        const className = "needs-validation" + (this.state.validated ? ' was-validated' : '');
+        if (this.state.comments.length === 0) {
+            return (
+                <div className="comment-section">
+                <hr />
+                <div className="uk-text-center">
+                    Be the first to leave a comment!
+                </div>
+                <hr />
+                <AddCommentForm slugified={this.props.slugified} onSubmit={this.handleSubmit} />
+                </div>
+            )
+        }
+
         return (
             <div className="comment-section">
-
-                <form className={className} noValidate onSubmit={(e) => this.handleSubmit(e)}>
-                    <div className="form-group">
-                        <input
-                            required
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            placeholder="Name" />
-                        <div className="invalid-feedback">
-                            Please enter a valid name.
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <textarea
-                            required
-                            type="text"
-                            name="comment"
-                            ref={this.textarea}
-                            className="form-control"
-                            onInput={() => { this.adjustHeight() }}
-                            placeholder="Please enter your comment ..." />
-                        <div className="invalid-feedback">
-                            Please enter a valid comment.
-                        </div>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
-
-                {/* <input className="uk-input" name="name" placeholder="Name" />
-                <textarea 
-                    className="uk-margin uk-textarea" 
-                    ref={this.textarea} 
-                    placeholder="Please enter your comment" 
-                    name="comment"
-                    onInput={()=>{this.adjustHeight()}}
-                />
-                <button className="uk-button uk-button-primary">Submit</button> */}
-
                 <hr />
-
-
                 <ul className="uk-comment-list">
-                    {this.props.comments.map((comment) => {
-                        return (
-                            <li key={comment['_id']}>
-                                <CommentSingle comment={comment} />
-                                <ul>
-                                    {comment.replies.map((reply) => {
-                                        return <li key={reply['_id']}>{<CommentSingle comment={reply} />}</li>
-                                    })}
-                                </ul>
-                            </li>
-                        )
+                    {this.state.comments.map((comment) => {
+                        if (comment.replies.length !== 0) {
+                            return (
+                                <li key={comment['_id']}>
+                                    <CommentSingle baseCommentID={comment._id} comment={comment} slugified={this.props.slugified} onSubmit={this.handleSubmit} />
+                                    <ul>
+                                        {comment.replies.map((reply) => {
+                                            return <li key={reply['_id']}>{<CommentSingle baseCommentID={comment._id} comment={reply} slugified={this.props.slugified} onSubmit={this.handleSubmit} />}</li>
+                                        })}
+                                    </ul>
+                                </li>
+                            )
+                        }
+                        else {
+                            return (
+                                <li key={comment['_id']}>
+                                    <CommentSingle baseCommentID={comment._id} comment={comment} slugified={this.props.slugified} onSubmit={this.handleSubmit} />
+                                </li>
+                            )
+                        }
                     })}
                 </ul>
-
-
-
+                <hr />
+                <AddCommentForm slugified={this.props.slugified} onSubmit={this.handleSubmit} />
             </div>
         )
     }
