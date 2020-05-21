@@ -209,7 +209,7 @@ app.post(path.join(basename, 'api/articles/:name/edit-reply'), async (req, res) 
                 }
             },
             {
-                arrayFilters: [{ "comment.name": "Zixuan" }, {"reply.name": "Mike"}],
+                arrayFilters: [{ "comment.name": "Zixuan" }, { "reply.name": "Mike" }],
                 upsert: true,
                 multi: true
             }
@@ -227,18 +227,18 @@ app.post(path.join(basename, 'api/articles/:name/delete-reply'), async (req, res
                 slugified: req.params.name
             },
             {
-                "$inc": {commentCount: -1},
+                "$inc": { commentCount: -1 },
                 "$pull": {
-                    "comments.$[comment].replies": {_id: new ObjectID(req.body.replyID)}
+                    "comments.$[comment].replies": { _id: new ObjectID(req.body.replyID) }
                 }
             },
             {
-                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID)}],
+                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID) }],
                 upsert: true,
             }
         );
 
-        const article = await db.collection('articles').findOne({slugified: req.params.name});
+        const article = await db.collection('articles').findOne({ slugified: req.params.name });
         res.status(200).json(article.comments);
     }, res);
 });
@@ -263,17 +263,118 @@ app.post(path.join(basename, 'api/articles/:name/delete-comment'), async (req, r
                 slugified: req.params.name
             },
             {
-                "$inc": {commentCount: -1-replies},
+                "$inc": { commentCount: -1 - replies },
                 "$pull": {
-                    "comments": {_id: new ObjectID(req.body.baseCommentID)}
+                    "comments": { _id: new ObjectID(req.body.baseCommentID) }
                 }
             }
         );
 
-        const article = await db.collection('articles').findOne({slugified: req.params.name});
+        const article = await db.collection('articles').findOne({ slugified: req.params.name });
         res.status(200).json(article.comments);
     }, res);
 });
+
+
+
+
+app.post(path.join(basename, 'api/articles/:name/like-comment'), async (req, res) => {
+    withDB(async (db) => {
+
+        if (req.body.baseCommentID === req.body.replyID) {
+            await db.collection('articles').updateOne(
+                {
+                    slugified: req.params.name
+                },
+                {
+                    "$inc": { "comments.$[comment].likeCount": 1 },
+                    "$push": {
+                        "comments.$[comment].likes": req.body.uuid
+                    }
+                },
+                {
+                    arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID) }],
+                    upsert: true
+                }
+            )
+        }
+        else {
+            await db.collection('articles').updateOne(
+                {
+                    slugified: req.params.name
+                },
+                {
+                    "$inc": { "comments.$[comment].replies.$[reply].likeCount": 1 },
+                    "$push": {
+                        "comments.$[comment].replies.$[reply].likes": req.body.uuid
+                    }
+                },
+                {
+                    arrayFilters: [
+                        { "comment._id": new ObjectID(req.body.baseCommentID) },
+                        { "reply._id": new ObjectID(req.body.replyID) }
+                    ],
+                    upsert: true,
+                    multi: true
+                }
+            )
+        }
+
+
+        const article = await db.collection('articles').findOne({ slugified: req.params.name });
+        res.status(200).json(article.comments);
+    }, res);
+});
+
+
+app.post(path.join(basename, 'api/articles/:name/dislike-comment'), async (req, res) => {
+    withDB(async (db) => {
+
+        if (req.body.baseCommentID === req.body.replyID) {
+            await db.collection('articles').updateOne(
+                {
+                    slugified: req.params.name
+                },
+                {
+                    "$inc": { "comments.$[comment].likeCount": -1 },
+                    "$pull": {
+                        "comments.$[comment].likes": req.body.uuid
+                    }
+                },
+                {
+                    arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID) }],
+                    upsert: true
+                }
+            )
+        }
+        else {
+            await db.collection('articles').updateOne(
+                {
+                    slugified: req.params.name
+                },
+                {
+                    "$inc": { "comments.$[comment].replies.$[reply].likeCount": -1 },
+                    "$pull": {
+                        "comments.$[comment].replies.$[reply].likes": req.body.uuid
+                    }
+                },
+                {
+                    arrayFilters: [
+                        { "comment._id": new ObjectID(req.body.baseCommentID) },
+                        { "reply._id": new ObjectID(req.body.replyID) }
+                    ],
+                    upsert: true,
+                    multi: true
+                }
+            )
+        }
+
+        // const article = await db.collection('articles').findOne({ slugified: req.params.name });
+        res.sendStatus(200);
+    }, res);
+});
+
+
 
 app.post(path.join(basename, 'api/articles/:name/add-reply'), async (req, res) => {
     withDB(async (db) => {
@@ -284,7 +385,7 @@ app.post(path.join(basename, 'api/articles/:name/add-reply'), async (req, res) =
             {
                 "$inc": { commentCount: 1 },
                 "$push": {
-                    "comments.$[comment].replies":{
+                    "comments.$[comment].replies": {
                         _id: new ObjectID(),
                         name: req.body.name,
                         replyTo: req.body.replyTo,
@@ -297,12 +398,12 @@ app.post(path.join(basename, 'api/articles/:name/add-reply'), async (req, res) =
                 }
             },
             {
-                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID)}],
+                arrayFilters: [{ "comment._id": new ObjectID(req.body.baseCommentID) }],
                 upsert: true
             }
         );
 
-        const article = await db.collection('articles').findOne({slugified: req.params.name});
+        const article = await db.collection('articles').findOne({ slugified: req.params.name });
         res.status(200).json(article.comments)
     }, res);
 });
