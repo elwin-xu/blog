@@ -19,7 +19,8 @@ class CommentSection extends Component {
     render() {
         if (this.state.comments.length === 0) {
             return (
-                <div className="comment-section" id="comment-section">
+                <div className="comment-section uk-margin-large-top" id="comment-section">
+                    <h2>Comments</h2>
                     <hr />
                     <div className="uk-text-center">
                         Be the first to leave a comment!
@@ -31,7 +32,8 @@ class CommentSection extends Component {
         }
 
         return (
-            <div className="comment-section" id="comment-section">
+            <div className="comment-section uk-margin-large-top" id="comment-section">
+                <h2>Comments</h2>
                 <hr />
                 <ul className="uk-comment-list">
                     {this.state.comments.map((comment) => {
