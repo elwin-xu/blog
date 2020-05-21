@@ -83,7 +83,7 @@ class EditArticle extends Component {
                     <form className="uk-form-stacked">
                         <legend className="uk-legend">Edit Article</legend>
 
-                        <label className="uk-form-label uk-margin" for="form-stacked-title">Title:</label>
+                        <label className="uk-form-label uk-margin" htmlFor="form-stacked-title">Title:</label>
                         <div className="uk-form-controls">
                             <input
                                 className="uk-input"
@@ -93,7 +93,7 @@ class EditArticle extends Component {
                                 onChange={(event) => this.setState({ title: event.target.value })} />
                         </div>
 
-                        <label className="uk-form-label uk-margin" for="form-stacked-description">Description:</label>
+                        <label className="uk-form-label uk-margin" htmlFor="form-stacked-description">Description:</label>
                         <div className="uk-form-controls">
                             <textarea
                                 className="uk-textarea"
@@ -105,7 +105,7 @@ class EditArticle extends Component {
                             />
                         </div>
 
-                        <label className="uk-form-label uk-margin" for="form-stacked-content">Content:</label>
+                        <label className="uk-form-label uk-margin" htmlFor="form-stacked-content">Content:</label>
                         <div className="uk-form-controls">
                             <textarea
                                 className="uk-textarea"

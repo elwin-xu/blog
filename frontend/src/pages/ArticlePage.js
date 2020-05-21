@@ -86,7 +86,10 @@ class ArticlePage extends Component {
                             </span>
                         </div>
                         <img data-src={this.state.article.cover} width="750" height="400" alt="cover" uk-img=""></img>
-                        <ReactMarkdown source={this.state.article.content} renderers={{ code: CodeBlock }} />
+                        <ReactMarkdown 
+                            source={this.state.article.content} 
+                            linkTarget="_blank"
+                            renderers={{ code: CodeBlock }} />
                         <CommentSection slugified={this.state.article.slugified} comments={this.state.article.comments} />
                     </article>
                     {/* <CommentList comments={articleInfo.comments} /> */}
