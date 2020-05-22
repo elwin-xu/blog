@@ -7,17 +7,18 @@ const NavBar = () => (
             <div className="uk-container uk-background-primary">
                 <nav data-uk-navbar>
                     <div className="uk-navbar-left">
-                        <a className="uk-navbar-item uk-logo" href="/">Zixuan's Tech Blog</a>
+                        <a className="uk-navbar-item uk-logo" href="/">Zixuan's Blog</a>
                         <ul className="uk-navbar-nav uk-visible@s">
                             <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
-                            <li><NavLink activeClassName="navbar-nav-active" to="/articles">Articles</NavLink></li>
-                            {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
+                            <li><NavLink activeClassName="navbar-nav-active" to="/articles">Blog</NavLink></li>
+                            <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
                         </ul>
                     </div>
                     <div className="uk-navbar-right">
                         <ul className="uk-navbar-nav uk-visible@s">
                             <li className="social-link"><a href="https://github.com/zixuan-xu"><span uk-icon="icon: github; ratio: 1.4" /></a></li>
                             <li className="social-link"><a href="https://www.linkedin.com/in/zixuan-xu/"><span uk-icon="icon: linkedin; ratio: 1.4" /></a></li>
+                            <li className="social-link"><a href="mailto:zi.xuan.xu@icloud.com"><span uk-icon="icon: email; ratio: 1.4" /></a></li>
                         </ul>
                         <ul className="uk-navbar-nav uk-hidden@s">
                             <li>
@@ -25,8 +26,8 @@ const NavBar = () => (
                                 <div className="uk-navbar-dropdown uk-background-primary uk-border-rounded">
                                     <ul className="uk-nav uk-navbar-dropdown-nav">
                                         <li><NavLink exact activeClassName="navbar-nav-active" to="/">Home</NavLink></li>
-                                        <li><NavLink activeClassName="navbar-nav-active" to="/articles">Articles</NavLink></li>
-                                        {/* <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li> */}
+                                        <li><NavLink activeClassName="navbar-nav-active" to="/articles">Blog</NavLink></li>
+                                        <li><NavLink activeClassName="navbar-nav-active" to="/about">About</NavLink></li>
                                         <li className="uk-nav-divider"></li>
                                         <div className="uk-grid-small" data-uk-grid>
                                             <div>
@@ -34,6 +35,9 @@ const NavBar = () => (
                                             </div>
                                             <div>
                                                 <li className="social-link"><a href="https://www.linkedin.com/in/zixuan-xu/"><span uk-icon="icon: linkedin" /></a></li>
+                                            </div>
+                                            <div>
+                                                <li className="social-link"><a href="mailto:zi.xuan.xu@icloud.com"><span uk-icon="icon: email" /></a></li>
                                             </div>
                                         </div>
                                     </ul>

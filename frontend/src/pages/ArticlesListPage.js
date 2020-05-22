@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import PostCard from '../components/PostCard';
 
 class ArticlesListPage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state = { articles: [] }
+        this.state = {
+            articles: [],
+            loading: true
+        }
     }
 
     async componentDidMount() {
         let res = await fetch('/api/articles')
         let articles = await res.json()
         this.setState({
-            articles: articles
+            articles: articles,
+            loading: false
         })
 
         // let res = await fetch('static/posts/000/post.md');
@@ -20,16 +24,23 @@ class ArticlesListPage extends Component {
     }
 
     render() {
+        // Check if fetching is finished
+        if (this.state.loading === true) return (
+            <div
+                className="d-flex justify-content-center"
+                style={{ height: "80vh", alignItems: "center" }}
+            >
+                <div className="spinner-border" role="status" style={{ height: "20vh", width: "20vh" }}>
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        );
+
         return (
             <div className="uk-section">
                 <div className="uk-container uk-container-small">
 
-                    {/* <ul data-uk-tab uk-switcher="">
-                        <li><a href="#">All</a></li>
-                        <li><a href="#">React</a></li>
-                        <li><a href="#">Git</a></li>
-                        <li><a href="#">HTML</a></li>
-                    </ul> */}
+
 
                     <ul className="uk-switcher">
                         <li></li>

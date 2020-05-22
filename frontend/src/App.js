@@ -12,6 +12,7 @@ import ArticlesListPage from './pages/ArticlesListPage';
 import ArticlePage from './pages/ArticlePage';
 import NotFoundPage from './pages/NotFoundPage';
 import NavBar from './NavBar';
+import Footer from './Footer';
 import './App.css';
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
               <Route component={NotFoundPage} />
             </Switch>
           </div>
+          <Footer />
         </div>
       </BrowserRouter>
     );
